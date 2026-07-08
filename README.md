@@ -6,13 +6,14 @@ get a `402` challenge; pay **0.01 CC** and you get the current Unix time.
 
 It uses the published Canton x402 stack:
 
+- [`@ftptech/x402-canton-express`](https://www.npmjs.com/package/@ftptech/x402-canton-express) — the merchant middleware that gates the route
 - [`@ftptech/x402-canton-core`](https://www.npmjs.com/package/@ftptech/x402-canton-core) — the `exact` scheme wire types
 - a live facilitator at `https://facilitator.ftptech.xyz`
 
-The whole x402 protocol is spelled out in [`src/server.ts`](src/server.ts) against a
-plain Node HTTP server — no framework — so you can read the verify/settle flow
-end to end. (For a framework integration, see `@ftptech/x402-canton-express` /
-`@ftptech/x402-canton-next`.)
+The whole server is ~40 lines in [`src/server.ts`](src/server.ts): build the
+`PaymentRequirements`, hand them to `cantonPaymentMiddleware`, and write the
+`/time` handler. The middleware does the 402 challenge and the verify/settle
+relay. (For Next.js, see `@ftptech/x402-canton-next`.)
 
 ## How it works
 
