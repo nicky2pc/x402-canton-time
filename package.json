@@ -1,0 +1,20 @@
+{
+  "name": "x402-canton-time",
+  "version": "0.1.0",
+  "description": "Minimal Canton x402 example: an HTTP server that gates GET /time behind a Canton Coin payment (transfer-factory / CIP-56).",
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@ftptech/x402-canton-core": "^0.6.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.0"
+  }
+}
