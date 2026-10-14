@@ -19,6 +19,11 @@
  * The middleware handles the 402 challenge, then relays the client's payment to
  * the facilitator's /verify + /settle and only calls the /time handler once the
  * payment has settled. Configure via environment (see .env.example).
+ *
+ * The payment travels in one request header of ~8-10 KiB, so the server must
+ * accept headers of at least 16 KiB: `npm start` runs Node with
+ * --max-http-header-size=32768, and a proxy in front needs the same headroom
+ * (nginx: `large_client_header_buffers 4 16k;`).
  */
 
 import "dotenv/config";

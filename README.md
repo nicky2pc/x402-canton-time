@@ -45,11 +45,20 @@ npm start
 ```
 
 The merchant party in `CANTON_X402_PAYTO` must hold a live `TransferPreapproval`
-(one-time setup, otherwise `/settle` fails closed):
+(one-time setup, otherwise `/settle` fails closed); `--status` checks it:
 
 ```bash
 npx @ftptech/canton-agent-wallet preapproval
+npx @ftptech/canton-agent-wallet preapproval --status
 ```
+
+`CANTON_X402_FACILITATOR` must be the party the facilitator relays as (its
+`/supported` lists it under `signers`); a stale value is refused at verify with
+`invalid_exact_canton_fee_payer_mismatch`.
+
+The payment arrives in one request header of ~8-10 KiB. `npm start` raises
+Node's header limit to 32 KiB; a proxy in front of the server must accept
+headers of at least 16 KiB too (nginx: `large_client_header_buffers 4 16k;`).
 
 ## Test it
 
@@ -72,9 +81,12 @@ curl -s -i http://localhost:3402/time \
 **2. The full paid round-trip** — from a funded Canton wallet, using the wallet CLI:
 
 ```bash
-npx @ftptech/canton-agent-wallet pay http://localhost:3402/time
+npx @ftptech/canton-agent-wallet pay --relay-url https://facilitator.ftptech.xyz --max 0.01 http://localhost:3402/time
 # → { "unix": 1751960000, "iso": "2026-07-08T...Z", "paid": "0.01 CC" }
 ```
+
+`pay` needs a relay (`--relay-url` or `CANTON_AGENT_RELAY_URL`); `--max` caps
+what one payment may cost.
 
 `pay` handles the whole flow: it reads the 402 challenge, signs the
 `TransferFactory_Transfer`, and re-requests with the `PAYMENT-SIGNATURE` header.
