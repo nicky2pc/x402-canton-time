@@ -1,0 +1,25 @@
+{
+  "name": "x402-canton-time",
+  "version": "0.2.0",
+  "description": "GET /time behind a 0.01 CC x402 payment on Canton, in TypeScript with @ftptech/x402-canton-express.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node --max-http-header-size=32768 --import tsx src/server.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@ftptech/x402-canton-express": "^0.2.10",
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

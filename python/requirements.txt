@@ -1,0 +1,2 @@
+ftptech-x402-canton[fastapi]>=0.1.0
+uvicorn>=0.54
