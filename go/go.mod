@@ -2,7 +2,7 @@ module github.com/nicky2pc/x402-canton-time/go
 
 go 1.26.10
 
-require github.com/FTP-Tech-LLC/x402-canton-merchant/go v0.1.0
+require github.com/FTP-Tech-LLC/x402-canton-merchant/go v0.1.1
 
 require (
 	github.com/x402-foundation/x402/go/v2 v2.31.0 // indirect
